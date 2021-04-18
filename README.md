@@ -6,7 +6,7 @@ To install SpaCy run:<br>
 Download english language with:<br>
 ```python -m spacy download en_core_web_sm```<br>
 ## Short code description
-The code available at [main.py]() is divided in two section: the first is made of the required functions and the second of a test script.
+The code available at [main.py](https://github.com/giorgio289/NLU_first_assignment/blob/main/main.py) is divided in two section: the first is made of the required functions and the second of a test script.
 ### Functions:
 The available functions are:
 * ```extract_path(sent)``` which extracts the path from ROOT to each of the token in the sentence passed as input
@@ -17,4 +17,4 @@ The available functions are:
 ### Test script:
 Takes as input a sentence and a segment and uses them as input to the functions, then prints all the result in a pretty way
 ### Note:
-For a more detailed description of the code see [report.pdf]()
+For a more detailed description of the code see [report.pdf](https://github.com/giorgio289/NLU_first_assignment/blob/main/report.pdf)
