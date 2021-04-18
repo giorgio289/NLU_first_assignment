@@ -84,7 +84,7 @@ def subj_dobj_iobj(sent):
     doc = nlp(sent)
     out = defaultdict(list)
     matcher = Matcher(nlp.vocab)
-    elem_to_find = ['nsubj','dobj','iobj']
+    elem_to_find = ['nsubj','dobj','dative']
     for string in elem_to_find:
         matcher.add(string, [[{"DEP": string}]])
     matches = matcher(doc)
