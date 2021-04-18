@@ -89,8 +89,14 @@ def subj_dobj_iobj(sent):
         matcher.add(string, [[{"DEP": string}]])
     matches = matcher(doc)
     for match_id, start, end in matches:
-        out[nlp.vocab.strings[match_id]].append(doc[start:end])
+        for nc in doc.noun_chunks:
+            span_=doc[start:end]
+            if span_[0] in nc:
+                out[nlp.vocab.strings[match_id]].append(nc)
     return out
+ 
+    
+# FUNCTION TESTS:
 
 # print dictionary in a pretty way
 # input: a dictionary
@@ -98,13 +104,12 @@ def subj_dobj_iobj(sent):
 def print_dict(dictionary):
     for key, value in dictionary.items():
         print("{0}: {1}".format(key,value))
- 
-    
-# FUNCTION TESTS:
-        
-sentence = "He was a genius of the best kind and his dog was green."
-segment = ['the','best','kind']
-span_obj = ['of','the','best']
+
+# Inputs        
+#sentence = "He was a genius of the best kind and his dog was green."
+sentence = "I saw the man with a telescope"
+segment = ['the','man']
+span_obj = ['with','a','telescope']
 
 print("---------- BEGIN ----------\n")
 print("The the sentence used is: \""+sentence+"\"")
@@ -112,14 +117,14 @@ print("\nThe depency path for each token of the sentence are:")
 print_dict(extract_path(sentence))
 print("\nThe subtrees for each token of the sentence are:")
 print_dict(extract_subtree(sentence))
-if check_if_subtree_unordered(sentence,segment):
-    print("\nThe unordered segment "+str(segment)+" IS a subtree")
-else:
-    print("\nThe unordered segment "+str(segment)+" IS NOT a subtree")
 if check_if_subtree_ordered(sentence,segment):
-    print("The ordered segment "+str(segment)+" IS a subtree")
+    print("\nThe ordered segment "+str(segment)+" IS a subtree")
 else:
-    print("The ordered segment "+str(segment)+" IS NOT a subtree")    
+    print("\nThe ordered segment "+str(segment)+" IS NOT a subtree")
+if check_if_subtree_unordered(sentence,segment):
+    print("The unordered segment "+str(segment)+" IS a subtree")
+else:
+    print("The unordered segment "+str(segment)+" IS NOT a subtree")
 print("\nThe head of the span "+str(span_obj)+" without considering the context is: "+span_head(span_obj).text)
 print("The head of the span "+str(span_obj)+" considering the context is: "+str(span_head_with_context(span_obj,sentence)))
 print("\nIf present subjects, direct objects and indirect objects of the sentence are: ")
